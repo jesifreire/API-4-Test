@@ -57,7 +57,7 @@ describe('Auth Controller - /auth/login', () => {
     expect(res.body).to.have.property('error').that.is.a('string');
   });
 
-  it('Deve garantir que o controller chame o serviço uma vez em uma tentativa válida', async () => {
+  it('Deve garantir que o controller chame o service ao menos uma vez em uma tentativa válida', async () => {
     const loginStub = sinon.stub(authService, 'login').resolves('token-abc');
 
     const res = await request(app)
