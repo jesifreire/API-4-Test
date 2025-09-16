@@ -12,7 +12,7 @@ describe('Auth Controller - /auth/login', () => {
   it('Deve retornar 200 e um token quando as credenciais forem válidas', async () => {
    
     const fakeToken = 'token-jesi-123';
-    const loginStub = sinon.stub(authService, 'login').resolves(fakeToken);
+    const loginStub = sinon.stub(authService, 'login').resolves({ token:fakeToken});
 
     const res = await request(app)
       .post('/auth/login')
@@ -58,13 +58,15 @@ describe('Auth Controller - /auth/login', () => {
   });
 
   it('Deve garantir que o controller chame o service ao menos uma vez em uma tentativa válida', async () => {
-    const loginStub = sinon.stub(authService, 'login').resolves('token-abc');
+    const fakeToken = 'token-abc'
+    const loginStub = sinon.stub(authService, 'login').resolves({ token: fakeToken });
 
     const res = await request(app)
       .post('/auth/login')
       .send({ username: 'bob', password: 'secret' });
 
     expect(res.status).to.equal(200);
+    expect
     expect(loginStub.calledOnce).to.be.true;
   });
 });
