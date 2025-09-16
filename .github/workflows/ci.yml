@@ -28,7 +28,7 @@ jobs:
       - name: Deploy simulation
         run: echo 'Simulating deployment "success"'
 
-      # Notificação no Discord via cURL
+      # Notificação no Discord ao final da execução
       - name: Notifica no Discord
         if: always()
         run: |
