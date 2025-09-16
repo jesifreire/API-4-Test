@@ -1,58 +1,99 @@
-# API Login - Node.js (Controller / Service / Model)
 
-Projeto de exemplo com separação de responsabilidades (Controller, Service, Model) e testes que isolam o Controller do Service.
+# API de Autenticação Node.js (REST & GraphQL)
 
-## O que tem aqui
-- API simples em Express com rota POST `/auth/login`
-- Separação por `src/controllers`, `src/services` e `src/models`
-- 5 testes com Mocha + Chai + Sinon + SuperTest que chamam o `app` e STUBAM o `authService` (isolando o Controller)
-- Workflow do GitHub Actions para rodar os testes
+> Projeto completo de autenticação com Express, JWT, GraphQL, documentação Swagger e testes automatizados.
+
+## Funcionalidades
+- Autenticação via REST (`/auth/login`) e GraphQL (`/graphql`)
+- Proteção de rotas com JWT (`/users/me`)
+- Documentação interativa com Swagger (`/api-docs`)
+- Testes automatizados (Mocha, Chai, Sinon, SuperTest)
 
 ## Requisitos
 - Node.js 18.x ou superior
-- npm (vem com o Node)
+- npm (geralmente já vem com o Node)
 
-## Como rodar localmente
-1. Extraia o projeto (se você baixou o zip) ou clone o repositório.
-2. Na pasta do projeto, instale dependências:
-   ```bash
-   npm install
-   ```
-3. Rodar a API:
-   ```bash
-   npm start
-   # ou em desenvolvimento com reload:
-   npm run dev
-   ```
-   A API ficará disponível em `http://localhost:3000`
+## Instalação e Execução
+1. Clone o repositório ou extraia o zip.
+2. Instale as dependências:
+    ```bash
+    npm install
+    ```
+3. Inicie a API:
+    ```bash
+    npm start
+    # ou em modo desenvolvimento (auto-reload):
+    npm run dev
+    ```
+    O servidor estará em `http://localhost:3000`
 
-## Rodar os testes
+## Endpoints REST
+- `POST /auth/login` — Faz login e retorna um token JWT
+- `GET /users/me` — Retorna dados do usuário autenticado (requer token JWT no header Authorization)
+
+## GraphQL
+- Endpoint: `http://localhost:3000/graphql`
+- Playground interativo disponível ao acessar o endpoint no navegador
+
+### Exemplo de Mutation (login)
+```graphql
+mutation {
+   login(username: "jesi", password: "password123") {
+      token
+      message
+   }
+}
+```
+
+### Exemplo de Query (usuário autenticado)
+```graphql
+query {
+   me(token: "SEU_TOKEN_JWT") {
+      id
+      username
+   }
+}
+```
+
+## Documentação Swagger
+- Acesse: `http://localhost:3000/api-docs`
+
+## Testes Automatizados
+Execute:
 ```bash
 npm test
 ```
-Os testes usam Mocha e SuperTest. Eles chamam o `app` em memória e STUBAM `authService.login` para isolar a camada de Controller.
+Os testes cobrem autenticação, proteção de rotas e integração REST.
 
-## Estrutura do projeto
+## Estrutura do Projeto
 ```
-api-login/
-├─ package.json
-├─ README.md
-├─ .gitignore
 ├─ app.js
 ├─ server.js
+├─ package.json
+├─ README.md
 ├─ src/
-│  ├─ routes/
-│  │  └─ auth.js
 │  ├─ controllers/
 │  │  └─ authController.js
+│  ├─ middleware/
+│  │  └─ authMiddleware.js
+│  ├─ models/
+│  │  └─ userModel.js
+│  ├─ routes/
+│  │  ├─ auth.js
+│  │  └─ user.js
 │  ├─ services/
 │  │  └─ authService.js
-│  └─ models/
-│     └─ userModel.js
-└─ test/
-   └─ auth.controller.test.js
+│  └─ graphql/
+│     └─ schema.js
+├─ test/
+│  ├─ auth.controller.test.js
+│  └─ auth.external.test.js
 ```
 
+## Variáveis de Ambiente
+- `JWT_SECRET` — (opcional) Segredo para assinar tokens JWT. Padrão: `segredo123`
+- `PORT` — (opcional) Porta do servidor. Padrão: `3000`
+
 ## CI (GitHub Actions)
-O workflow `.github/workflows/ci.yml` roda os testes automaticamente em pushes e pull requests para as branches `main`/`master`.
+O workflow `.github/workflows/ci.yml` executa os testes automaticamente em pushes e pull requests para as branches `main`/`master`.
 
