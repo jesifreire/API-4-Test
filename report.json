@@ -1,0 +1,196 @@
+{
+    "metrics": {
+        "http_req_receiving": {
+            "med": 0.5924,
+            "max": 1.0203,
+            "p(90)": 1.0040799999999999,
+            "p(95)": 1.0122,
+            "avg": 0.4404461538461538,
+            "min": 0
+        },
+        "checks": {
+            "fails": 6,
+            "passes": 14,
+            "value": 0.7
+        },
+        "group_duration": {
+            "p(90)": 1721.18005,
+            "p(95)": 1774.4474249999998,
+            "avg": 959.3859833333335,
+            "min": 243.2151,
+            "med": 752.98055,
+            "max": 1827.7148
+        },
+        "http_req_waiting": {
+            "max": 3.4803,
+            "p(90)": 3.1158200000000003,
+            "p(95)": 3.35898,
+            "avg": 1.7634846153846153,
+            "min": 0.5109,
+            "med": 2.0106
+        },
+        "login_duration": {
+            "p(95)": 3.75235,
+            "avg": 2.564216666666667,
+            "min": 1.5461,
+            "med": 2.2549,
+            "max": 3.8453,
+            "p(90)": 3.6593999999999998,
+            "thresholds": {
+                "avg<1000": false
+            }
+        },
+        "http_req_blocked": {
+            "min": 0,
+            "med": 0,
+            "max": 6.3286,
+            "p(90)": 4.024000000000004,
+            "p(95)": 5.549439999999998,
+            "avg": 0.8737384615384615
+        },
+        "data_sent": {
+            "count": 1989,
+            "rate": 344.9399109992597
+        },
+        "http_req_sending": {
+            "med": 0,
+            "max": 0.5672,
+            "p(90)": 0.4271200000000004,
+            "p(95)": 0.54722,
+            "avg": 0.08470000000000001,
+            "min": 0
+        },
+        "vus_max": {
+            "value": 1,
+            "min": 1,
+            "max": 1
+        },
+        "iteration_duration": {
+            "avg": 959.5690500000001,
+            "min": 243.2151,
+            "med": 753.23735,
+            "max": 1828.2996,
+            "p(90)": 1721.47245,
+            "p(95)": 1774.886025
+        },
+        "http_req_connecting": {
+            "p(90)": 1.3274400000000013,
+            "p(95)": 3.3219799999999937,
+            "avg": 0.5750230769230769,
+            "min": 0,
+            "med": 0,
+            "max": 5.816
+        },
+        "data_received": {
+            "count": 4400,
+            "rate": 763.0646598274221
+        },
+        "vus": {
+            "min": 1,
+            "max": 1,
+            "value": 1
+        },
+        "http_req_duration": {
+            "avg": 2.2886307692307692,
+            "min": 1.1033,
+            "med": 2.081,
+            "max": 4.5006,
+            "p(90)": 3.7709400000000004,
+            "p(95)": 4.107419999999999,
+            "thresholds": {
+                "p(95)<800": false
+            }
+        },
+        "iterations": {
+            "count": 6,
+            "rate": 1.0405427179464848
+        },
+        "http_reqs": {
+            "rate": 2.2545092222173837,
+            "count": 13
+        },
+        "http_req_duration{expected_response:true}": {
+            "med": 2.1128,
+            "max": 3.8453,
+            "p(90)": 3.62222,
+            "p(95)": 3.7337599999999997,
+            "avg": 2.4951857142857143,
+            "min": 1.5461
+        },
+        "http_req_tls_handshaking": {
+            "p(90)": 0,
+            "p(95)": 0,
+            "avg": 0,
+            "min": 0,
+            "med": 0,
+            "max": 0
+        },
+        "http_req_failed": {
+            "passes": 6,
+            "fails": 7,
+            "value": 0.46153846153846156
+        }
+    },
+    "setup_data": {
+        "token": "token-bob-123"
+    },
+    "root_group": {
+        "name": "",
+        "path": "",
+        "id": "d41d8cd98f00b204e9800998ecf8427e",
+        "groups": {
+            "setup": {
+                "id": "5c0f8025f7e0b6654089e5b00e950f1a",
+                "groups": {},
+                "checks": {
+                        "setup login status 200": {
+                            "path": "::setup::setup login status 200",
+                            "id": "ff4ef22313637ce7d86b89a3881b1e4e",
+                            "passes": 1,
+                            "fails": 0,
+                            "name": "setup login status 200"
+                        },
+                        "setup has token": {
+                            "path": "::setup::setup has token",
+                            "id": "e5c049ecb04c76786fb96142e88b0c33",
+                            "passes": 1,
+                            "fails": 0,
+                            "name": "setup has token"
+                        }
+                    },
+                "name": "setup",
+                "path": "::setup"
+            },
+            "login flow": {
+                "name": "login flow",
+                "path": "::login flow",
+                "id": "2862e8c597838c37b4c317022d45fe2c",
+                "groups": {},
+                "checks": {
+                        "status is 200 or 401": {
+                            "passes": 6,
+                            "fails": 0,
+                            "name": "status is 200 or 401",
+                            "path": "::login flow::status is 200 or 401",
+                            "id": "01bdaea53c2e4d79c74d3e8b1ce076b5"
+                        },
+                        "has token when 200": {
+                            "fails": 0,
+                            "name": "has token when 200",
+                            "path": "::login flow::has token when 200",
+                            "id": "53a145f622ab8f12255ab8059acf49f7",
+                            "passes": 6
+                        },
+                        "protected 200": {
+                            "id": "ddcc75bb71042475da2287ad6ea23f75",
+                            "passes": 0,
+                            "fails": 6,
+                            "name": "protected 200",
+                            "path": "::login flow::protected 200"
+                        }
+                    }
+            }
+        },
+        "checks": {}
+    }
+}
