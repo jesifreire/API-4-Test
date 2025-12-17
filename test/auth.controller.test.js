@@ -1,23 +1,21 @@
 const chai = require('chai');
-const expect = chai.expect;
 const request = require('supertest');
 const sinon = require('sinon');
-
 const app = require('../app');
 const authService = require('../src/services/authService');
+
+const { expect } = chai;
 
 describe('Auth Controller - /auth/login', () => {
   afterEach(() => sinon.restore());
 
   it('Deve retornar 200 e um token quando as credenciais forem válidas', async () => {
-   
     const fakeToken = 'token-jesi-123';
-    const loginStub = sinon.stub(authService, 'login').resolves({ token:fakeToken});
+    const loginStub = sinon.stub(authService, 'login').resolves({ token: fakeToken });
 
     const res = await request(app)
       .post('/auth/login')
       .send({ username: 'jesi', password: 'password123' });
-
 
     expect(res.status).to.equal(200);
     expect(res.body).to.have.property('token', fakeToken);
@@ -38,7 +36,7 @@ describe('Auth Controller - /auth/login', () => {
   it('Deve retornar 400 quando o nome de usuário ou a senha estiverem faltando', async () => {
     const res = await request(app)
       .post('/auth/login')
-      .send({ username: 'jesi' }); 
+      .send({ username: 'jesi' });
 
     expect(res.status).to.equal(400);
     expect(res.body).to.have.property('message', 'username and password are required');
@@ -52,13 +50,12 @@ describe('Auth Controller - /auth/login', () => {
       .post('/auth/login')
       .send({ username: 'jesi', password: 'password123' });
 
-    
     expect(res.status).to.equal(500);
     expect(res.body).to.have.property('error').that.is.a('string');
   });
 
   it('Deve garantir que o controller chame o service ao menos uma vez em uma tentativa válida', async () => {
-    const fakeToken = 'token-abc'
+    const fakeToken = 'token-abc';
     const loginStub = sinon.stub(authService, 'login').resolves({ token: fakeToken });
 
     const res = await request(app)
@@ -66,7 +63,6 @@ describe('Auth Controller - /auth/login', () => {
       .send({ username: 'bob', password: 'secret' });
 
     expect(res.status).to.equal(200);
-    expect
     expect(loginStub.calledOnce).to.be.true;
   });
 });

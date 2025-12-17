@@ -1,4 +1,60 @@
-node_modules
+# Node
+node_modules/
+
+# Logs
+yarn-debug.log*
+yarn-error.log*
+npm-debug.log*
+pnpm-debug.log*
+lerna-debug.log*
+logs/
+*.log
+*.log.*
+
+# Variáveis de ambiente
 .env
-coverage
-.vscode
+.env.*
+!.env.example
+
+# Cobertura de testes
+coverage/
+.nyc_output/
+
+# Builds temporários
+.dist/
+dist/
+build/
+out/
+.tmp/
+.tmp
+.tmp/**
+.tmp*
+.temp/
+.tmp/
+tmp/
+
+# Caches
+.eslintcache
+.cache/
+.parcel-cache/
+
+# Relatórios de testes
+junit.xml
+test-results.xml
+mochawesome-report/
+mochawesome*.html
+mochawesome*.json
+
+# Artefatos de performance (k6)
+k6-html-report.html
+k6-result*.json
+k6-results/
+
+# IDE/OS
+.vscode/
+.idea/
+.DS_Store
+Thumbs.db
+.history
+*.swp
+*.swo

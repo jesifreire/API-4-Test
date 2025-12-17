@@ -100,9 +100,9 @@ O workflow `.github/workflows/ci.yml` executa os testes automaticamente em pushe
 
 ## Teste de Performance com k6
 
-Adicionei um script de performance em `test/perf/login.k6.js` que exemplifica os conceitos exigidos no desafio.
+O script de performance está em `test/perf/login.k6.js` 
 
-Trechos e onde os conceitos foram aplicados:
+Onde os conceitos foram aplicados:
 
 
 ```js
@@ -112,23 +112,11 @@ thresholds: {
 }
 ```
 
-
-
-
-
-
-
-
-
-
-
 Como executar o teste de performance (requisitos):
 
 1. Instale o k6 na sua máquina (instruções em https://k6.io/docs/getting-started/installation).
 
 ### Exemplo de uso de Groups e Helpers
-
-O exemplo abaixo demonstra como documentar no README o uso de `group` e de um helper importado — adaptei para o caminho do seu projeto (`test/perf/login.k6.js` e `test/perf/helpers.js`):
 
 ```js
 // arquivo: test/perf/login.k6.js
@@ -142,20 +130,18 @@ group('Login User', function () {
 });
 ```
 
-No trecho acima mostramos claramente o arquivo onde o código está (`test/perf/login.k6.js`), o uso de `group('Login User', ...)` e a importação/uso do helper `buildLoginPayload` (localizado em `test/perf/helpers.js`). Isso segue o mesmo padrão do exemplo fornecido.
-2. Inicie sua API (por exemplo `npm start`).
+No trecho acima podemos ver onde o código está (`test/perf/login.k6.js`), o uso de `group('Login User', ...)` e a importação/uso do helper `buildLoginPayload` (localizado em `test/perf/helpers.js`).
+2. Inicie a API (por exemplo `npm start`).
 3. Execute o k6 (exemplo usando as variáveis de ambiente):
 
 ```powershell
 $env:BASE_URL = 'http://localhost:3000';
 k6 run test/perf/login.k6.js
 ```
-
 ou usando o script npm (requer que o binário `k6` esteja no PATH):
 
 ```powershell
 npm run perf
 ```
-
 Observação: se quiser alterar usuário/senha usados no `setup`, exporte `PERF_USER` e `PERF_PASS` como variáveis de ambiente.
 

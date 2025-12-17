@@ -69,7 +69,7 @@ export default function (data) {
     // se obteve token, testar endpoint protegido com token (reaproveitamento)
     if (res.status === 200) {
       const token = res.json('token');
-      const authRes = http.get(`${base}/protected/resource`, {
+      const authRes = http.get(`${base}/users/me`, {
         headers: { Authorization: `Bearer ${token}` },
       });
       check(authRes, { 'protected 200': (r) => r.status === 200 });

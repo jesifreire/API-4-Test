@@ -5,36 +5,47 @@ on:
   pull_request:
     branches: [ main, master ]
 
+permissions:
+  contents: read
+
+concurrency:
+  group: ci-${{ github.ref }}
+  cancel-in-progress: true
+
 jobs:
   test:
     runs-on: ubuntu-latest
     strategy:
       matrix:
-        node-version: [18.x]
+        node-version: [18.x, 20.x]
     steps:
       - uses: actions/checkout@v4
       - name: Use Node.js ${{ matrix.node-version }}
         uses: actions/setup-node@v4
         with:
           node-version: ${{ matrix.node-version }}
+          cache: 'npm'
       - name: Install dependencies
         run: npm ci
       - name: Run tests
+        env:
+          CI: true
         run: npm test
 
   deploy:
+    needs: test
     runs-on: ubuntu-latest
     steps:
       - name: Deploy simulation
+        if: ${{ needs.test.result == 'success' }}
         run: echo 'Simulating deployment "success"'
 
-      # Notificação no Discord ao final da execução
       - name: Notifica no Discord
         if: always()
         run: |
           curl -H "Content-Type: application/json" \
                -X POST \
                -d '{
-                     "content": "🕵️‍♀️ *Execução com inspecao concluida!*\n👤 Disparado por: ${{ github.actor }}\n📂 Repositório: ${{ github.repository }}\n📄 Branch: ${{ github.ref_name }}\n✅ Status: ${{ job.status }}"
+                     "content": "🕵️‍♀️ Execução concluída!\n👤 Disparado por: ${{ github.actor }}\n📂 Repositório: ${{ github.repository }}\n📄 Branch: ${{ github.ref_name }}\n🧪 Testes: ${{ needs.test.result }}\n🚀 Deploy: ${{ job.status }}"
                    }' \
                ${{ secrets.DISCORD_WEBHOOK }}

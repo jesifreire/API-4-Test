@@ -1,13 +1,13 @@
 const jwt = require('jsonwebtoken');
+
 const SECRET = process.env.JWT_SECRET || 'segredo123';
 
 const users = [
-  { username: 'admin', password: '123' },              // já usado nos seus testes
-  { username: 'jesi', password: 'password123' }        // adicional para seus testes no GraphQL
+  { username: 'admin', password: '123' },
+  { username: 'jesi', password: 'password123' }
 ];
 
 async function login(username, password) {
-  
   const user = users.find(u => u.username === username && u.password === password);
 
   if (user) {
@@ -15,7 +15,7 @@ async function login(username, password) {
     return { token };
   }
 
-  throw new Error('Credenciais inválidas');
+  return null; // não lança erro; controller responde 401
 }
 
 module.exports = { login };

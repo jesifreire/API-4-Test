@@ -1,4 +1,5 @@
 const jwt = require('jsonwebtoken');
+
 const SECRET = process.env.JWT_SECRET || 'segredo123';
 
 module.exports = (req, res, next) => {
